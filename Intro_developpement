@@ -1,1 +1,12 @@
 
+•	Introduction
+Aujourd'hui, les serveurs enregistrent automatiquement tous les événements qui se produisent sur le réseau. Ces enregistrements s'appellent des logs. Quand on a plusieurs machines, les logs sont éparpillés partout et il devient difficile de tout surveiller manuellement.
+Ce projet a pour but de mettre en place un système de supervision et de gestion des logs sur deux machines Ubuntu 22.04 connectées en réseau. La machine WEB1 produit des logs et les envoie automatiquement vers WEB2, qui les reçoit et les stocke. Les outils utilisés sont rsyslog pour le transfert des logs, journalctl pour les lire, et logrotate pour gérer l'espace disque automatiquement.
+
+
+•	Développement
+La première étape a été de préparer les deux machines virtuelles et de les connecter en réseau via VirtualBox. Ensuite, nous avons configuré rsyslog sur WEB1 pour envoyer ses logs vers WEB2, et sur WEB2 pour les recevoir. Nous avons ouvert le port 514/UDP dans le pare-feu pour autoriser la communication entre les deux machines.
+Nous avons utilisé journalctl pour lire et filtrer les journaux système, notamment les logs du service SSH. Grâce à la surveillance en temps réel du fichier syslog, nous avons pu voir les messages envoyés depuis WEB1 arriver directement sur WEB2, comme "Test log depi WEB1 ale WEB2" et "Configuration rsyslog reussie - WEB1 vers WEB2".
+Enfin, nous avons configuré logrotate pour archiver les logs chaque jour et garder seulement les 7 dernières rotations. Une difficulté de permissions a été rencontrée sur le dossier des logs, mais elle a été corrigée rapidement.
+À la fin du projet, le système fonctionnait correctement : les logs de WEB1 arrivaient bien sur WEB2 en temps réel, et la gestion automatique des fichiers était bien en place.
+
